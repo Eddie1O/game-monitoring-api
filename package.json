@@ -2,6 +2,11 @@
   "name": "game-monitoring-api",
   "module": "src/index.ts",
   "type": "module",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "build": "tsc",
+    "test": "vitest"
+  },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/bun": "latest",
