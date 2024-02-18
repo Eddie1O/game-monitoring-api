@@ -1,18 +1,44 @@
-# game-monitoring-api
+#Game Monitoring API
+API for managing users, teams, and requests for a game monitoring application
 
-To install dependencies:
+#API Documentation
 
-```bash
-bun install
-```
+> This is the API documentation for the Game Monitoring API. This API is used to manage users, teams, and requests for a game monitoring application. The API is protected by JWT authentication. The API server is running at http://localhost:3000. All responses are in JSON format same as your Requests have to be. Authtoken is required for all requests except for the health check and sign up endpoints. The authtoken can be obtained by signing in. The authtoken should be included in the request header as `Authorization: Bearer <authtoken>`.
 
-To run:
+##Health Check
+**GET** `/api/v1/healthcheck`
+Description: Checks if the API server is running.
+Response: **200 OK** `{ message: "API server running" }`
+##User
+###Get User List
+**GET** `/api/v1/user`
+Description: List users. (Authenticated users only)
+Response: **200 OK** `{ usersWithRank: [{ name: string, score: number, rank: number}]}`
+###Sign Up
+**POST** `/api/v1/user/signup`
+Description: Creates a new user.
+Request Body: `{ "username": string, "password": string }`
+Response: **200 OK** `{ message: "User created successfully", token: string }`
+###Sign In
+**POST** `/api/v1/user/signin`
+Description: Signs in a user.
+Request Body: `{ "username": string, "password": string }`
+Response: **200 OK** `{ user: { name: string, score: number }, token: string }`
+##Team
+###Get team list
+**GET** `/api/v1/team`
+Description: List teams.
+Response: **200 OK** `{ teams: [{ name: string, memberNumber: number, owner: string, totalScore: number }] }`
+###Create Team
+**POST** `/api/v1/team`
+Description: Creates a new team.
+Request Body: `{ "name": string, "maximumMembers": number > 10 }`
+Response: 200 Created with the created team's information.
 
-```bash
-bun run index.ts
-```
+###...TBD
 
-This project was created using `bun init` in bun v1.0.25. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+#Tests
+The API has been tested using Vitest. The tests are located in the `tests` directory. The tests can be run using the command `npm run test`. The tests are run against a prod database. The API server should be running before running the tests.
 
 #TODO
 
